@@ -1,0 +1,3 @@
+Car,AAA111,Toyota,null,2019,Available
+Minibus,BBB222,Honda,null,2021,Available
+PickupTruck,CCC333,Ford,null,2024,Available

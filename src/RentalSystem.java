@@ -78,12 +78,68 @@ public class RentalSystem {
         System.out.println();
     }
 
+    public String displayVehiclesAsText(Vehicle.VehicleStatus status) {
+
+        String text = "";
+
+
+        // Display appropriate title based on status
+        if (status == null) {
+            text += "=== All Vehicles ===\n";
+        } else {
+            text += "=== " + status + " Vehicles ===\n";
+        }
+
+        // Header with proper column widths
+        text += String.format("|%-16s | %-12s | %-12s | %-12s | %-6s | %-18s |%n",
+            " Type", "Plate", "Make", "Model", "Year", "Status");
+        text += "\n|--------------------------------------------------------------------------------------------|";
+
+        boolean found = false;
+        for (Vehicle vehicle : vehicles) {
+            if (status == null || vehicle.getStatus() == status) {
+                found = true;
+                String vehicleType;
+                if (vehicle instanceof Car) {
+                    vehicleType = "Car";
+                } else if (vehicle instanceof Minibus) {
+                    vehicleType = "Minibus";
+                } else if (vehicle instanceof PickupTruck) {
+                    vehicleType = "Pickup Truck";
+                } else {
+                    vehicleType = "Unknown";
+                }
+                text += String.format("\n| %-15s | %-12s | %-12s | %-12s | %-6d | %-18s |%n",
+                    vehicleType, vehicle.getLicensePlate(), vehicle.getMake(), vehicle.getModel(), vehicle.getYear(), vehicle.getStatus().toString());
+            }
+        }
+        if (!found) {
+            if (status == null) {
+                text += "\n  No Vehicles found.";
+            } else {
+                text += "\n  No vehicles with Status: " + status;
+            }
+        }
+        text += "\n";
+
+        return text;
+    }
+
+
     public void displayAllCustomers() {
         for (Customer c : customers) {
             System.out.println("  " + c.toString());
         }
     }
-    
+
+        public String displayAllCustomersAsText() {
+            String text = "";
+        for (Customer c : customers) {
+            text += "  " + c.toString() + "\n";
+        }
+        return text;
+    }
+
     public void displayRentalHistory() {
         if (rentalHistory.getRentalHistory().isEmpty()) {
             System.out.println("  No rental history found.");
@@ -105,7 +161,35 @@ public class RentalSystem {
             System.out.println();
         }
     }
-    
+
+
+    public String displayRentalHistoryAsText() {
+
+        String text = "";
+
+
+        if (rentalHistory.getRentalHistory().isEmpty()) {
+            text += "  No rental history found.";
+        } else {
+            // Header with proper column widths
+            text += String.format("|%-10s | %-12s | %-20s | %-12s | %-12s |%n",
+                " Type", "Plate", "Customer", "Date", "Amount");
+            text += "|-------------------------------------------------------------------------------|\n";
+
+            for (RentalRecord record : rentalHistory.getRentalHistory()) {
+                text += String.format("| %-9s | %-12s | %-20s | %-12s | $%-11.2f |%n",
+                    record.getRecordType(),
+                    record.getVehicle().getLicensePlate(),
+                    record.getCustomer().getCustomerName(),
+                    record.getRecordDate().toString(),
+                    record.getTotalAmount()
+                );
+            }
+        }
+
+        return text;
+    }
+
     public Vehicle findVehicleByPlate(String plate) {
         for (Vehicle v : vehicles) {
             if (v.getLicensePlate().equalsIgnoreCase(plate)) {

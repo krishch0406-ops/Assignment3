@@ -3,8 +3,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class RentalSystem {
-    // made this static so only one instance exists
-    private static RentalSystem instance;
+	
+	// Task 2: Singleton Validation
+	private static RentalSystem instance;
 
     // constructor is private so you can’t call new RentalSystem()
     private RentalSystem() {
@@ -34,7 +35,7 @@ public class RentalSystem {
         customers.add(customer);
     }
 
-    // changed this to return boolean so I know if renting worked or not
+ // Task 2: Rent/Return Vehicle Validation
     public boolean rentVehicle(Vehicle vehicle, Customer customer, LocalDate date, double amount) {
         if (vehicle.getStatus() == Vehicle.VehicleStatus.Available) {
             vehicle.setStatus(Vehicle.VehicleStatus.Rented);

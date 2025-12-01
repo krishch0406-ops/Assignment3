@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class RentalSystem {
 	
+	// Task 2: Singleton Validation (commit trigger)
 	// Task 2: Singleton Validation
 	private static RentalSystem instance;
 

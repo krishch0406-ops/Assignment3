@@ -28,7 +28,7 @@ public abstract class Vehicle {
     }
 
     
-    //this method checks if a plate is valid or not
+ // Task 2: Vehicle License Plate Validation
     private boolean isValidPlate(String plate) { 
         if (plate == null || plate.isEmpty()) {
             return false; // returns false if plate is missing 
